@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+//Kinect example code
 var kinect = require('./addons/kinect/addon');
 var png = require('./addons/png/png').Png;
 var io = require('socket.io').listen(8080, { log: false });
