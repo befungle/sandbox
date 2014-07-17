@@ -19,6 +19,9 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
+        require_once __DIR__.'/../../vendor/autoload.php';
+        //use PhpAmqpLib\Connection\AMQPConnection;
+        //use PhpAmqpLib\Message\AMQPMessage;
 		$this->load->view('welcome_message');
 	}
 }

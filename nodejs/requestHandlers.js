@@ -1,7 +1,7 @@
 var exec=require("child_process").exec;
 var querystring=require("querystring");
-fs = require("fs");
-formidable = require("formidable");
+var fs = require("fs");
+var formidable = require("formidable");
 
 
 function start(response,request) {
@@ -58,6 +58,21 @@ function show(response) {
     fs.createReadStream("/Users/LLWebDev/Documents/sandbox/nodejs/images/logo_2x.png").pipe(response);
 
 }
+function socket(response){
+    fs.readFile("socket.html", function(error, data){
+        if (error){
+            response.writeHead(404);
+            response.write("opps this doesn't exist - 404");
+            response.end();
+        }
+        else{
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write(data, "utf8");
+            response.end();
+        }
+    });
+}
 exports.start = start;
 exports.upload = upload;
 exports.show = show;
+exports.socket = socket;

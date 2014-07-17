@@ -1,5 +1,7 @@
 var http = require("http");
 var url = require("url");
+var io = require('socket.io');
+var fs = require('fs');
 var querystring=require("querystring");
 
 function start(routes, handle) {
@@ -20,7 +22,19 @@ function start(routes, handle) {
             routes(handle, pathname, response, postData);
         });*/
     }
-    http.createServer(onRequest).listen(8888);
+    var server = http.createServer(onRequest);
+    server.listen(8001);
+    var ios = io.listen(server);
+    ios.sockets.on('connection', function(socket){
+        socket.emit('message', {'message': 'Getting Started'});
+        setInterval(function(){
+            socket.emit('date', {'date': new Date()});
+        }, 1000);
+
+        socket.on('client_data', function(data){
+            process.stdout.write(data.letter);
+        });
+    });
     console.log("Server has started.");
 }
 
